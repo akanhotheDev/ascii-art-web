@@ -42,7 +42,13 @@ func Render(input string, fontFile string) string {
 		return "error loading font"
 	}
 
-	lines := strings.Split(string(data), "\n")
+	raw := strings.Split(string(data), "\n")
+
+	var lines [] string
+
+	for _, line := range raw {
+		lines = append(lines, strings.TrimRight(line,"\r"))
+	}
 
 	input = strings.ReplaceAll(input, `\n`, "\n")
 	parts := strings.Split(input, "\n")
