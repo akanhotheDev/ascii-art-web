@@ -1,7 +1,6 @@
 package asciiart
 
 import (
-	// "fmt"
 	"os"
 	"strings"
 )
@@ -14,27 +13,6 @@ func getChar(c rune, line []string) []string {
 	return line[startLine : startLine+8]
 }
 
-// func renderAscii () string{
-// 	if len(os.Args) < 2 {
-// 		fmt.Println("Pass In your Text.")
-// 	}
-// 	textArg := os.Args[1: len(os.Args) -1]
-// 	fileName := "banner/" + "standard" + ".txt"
-
-// 	if len(os.Args) > 2 {
-// 		fileName = "banner/" + os.Args[2] + ".txt"
-// 	}
-// 	data, err := os.ReadFile(fileName)
-// 	if err != nil {
-// 		fmt.Println("Error reading Font-file", err)
-
-// 	}
-// 	content := strings.Split(string(data), "\n")
-// 	input := strings.Join(textArg, " ")
-// 	input = strings.ReplaceAll(input,`\n`, "\n")
-
-// 	return (Render(input, content))
-// }
 func Render(input string, fontFile string) string {
 
 	data, err := os.ReadFile(fontFile)
@@ -42,7 +20,13 @@ func Render(input string, fontFile string) string {
 		return "error loading font"
 	}
 
-	lines := strings.Split(string(data), "\n")
+	raw := strings.Split(string(data), "\n")
+
+	var lines [] string
+
+	for _, line := range raw {
+		lines = append(lines, strings.TrimRight(line,"\r"))
+	}
 
 	input = strings.ReplaceAll(input, `\n`, "\n")
 	parts := strings.Split(input, "\n")

@@ -141,8 +141,6 @@ button:hover {
             <option value="standard" {{if eq .Banner "standard"}}selected{{end}}>Standard</option>
             <option value="thinkertoy" {{if eq .Banner "thinkertoy"}}selected{{end}}>Thinkertoy</option>
             <option value="shadow" {{if eq .Banner "shadow"}}selected{{end}}>Shadow</option>
-            <option value="blocks">Block</option>
-        </select>
         <textarea name="passed-text" id="passed-text" placeholder="Type In your prefered text">{{.Text}}</textarea>
         <button type="submit">Generate Ascii-art</button>
     </form>
