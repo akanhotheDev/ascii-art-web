@@ -34,11 +34,11 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "http://localhost:8080"
+		port = "localhost:8080"
 	}
 
 	fmt.Println("Server running on port:", port)
-	err := http.ListenAndServe(":"+port, nil)
+	err := http.ListenAndServe(port, nil)
 	if err != nil {
 		fmt.Println("Server error:", err)
 	}

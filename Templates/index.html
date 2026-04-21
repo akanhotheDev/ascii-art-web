@@ -1,156 +1,167 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fi-Go</title>
-    <style>
-     body {
-    background: #1e1e1e;
-    color: #f5f5f5;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fi-Go</title>
+<style>
+    body {
+  background: #1e1e1e;
+  color: #f5f5f5;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* HEADER */
 .logo {
-    text-align: center;
-    padding: 1rem;
-    margin: 0;
-    font-size: 2.2rem;
-    background: #111;
-    border-bottom: 1px solid #444;
-    letter-spacing: 1px;
+  text-align: center;
+  padding: 1rem;
+  margin: 0;
+  font-size: 2.2rem;
+  background: #111;
+  border-bottom: 1px solid #444;
+  letter-spacing: 1px;
 }
 
-/* 🔥 Styled GO */
 .logo .go {
-    color: #00ffcc;
-    text-shadow: 0 0 8px #00ffcc, 0 0 16px #00ffcc;
-    font-weight: bold;
+  color: #00ffcc;
+  text-shadow: 0 0 8px #00ffcc, 0 0 16px #00ffcc;
+  font-weight: bold;
 }
 
-
-/* MAIN LAYOUT */
 .body {
-    display: flex;
-    height: 90vh;
+  display: flex;
+  height: 90vh;
 }
 
 /* RESULT PANEL */
 #result {
-    width: 50%;
-    padding: 20px;
-    background: #2a2a2a;
-    overflow: auto;
-    border-right: 1px solid #444;
+  width: 50%;
+  padding: 20px;
+  background: #2a2a2a;
+  overflow: auto;
+  border-right: 1px solid #444;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-
 #result pre {
-    color: #00ffcc;
-    font-size: 14px;
+  color: #00ffcc;
+  font-size: 14px;
+  flex: 1;
+}
 
+/* Button row inside result */
+.result-actions {
+  display: flex;
+  gap: 0.75rem;
 }
 
 /* FORM PANEL */
 form {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.7);
 }
 
-/* INPUTS */
 textarea {
-    width: 80%;
-    height: 8rem;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    background: #333;
-    color: #fff;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.6);
-    transition: 0.2s;
+  width: 80%;
+  height: 8rem;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #333;
+  color: #fff;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.6);
+  transition: 0.2s;
 }
-/* Focus effect */
+
 textarea:focus, select:focus {
-    outline: none;
-    box-shadow: 0 0 10px #00ffcc;
+  outline: none;
+  box-shadow: 0 0 10px #00ffcc;
 }
-/* DROPDOWN */
+
 select {
-    width: 80%;
-    height: 2.5rem;
-    border-radius: 8px;
-    border: none;
-    background: #333;
-    color: #fff;
-    padding: 5px;
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #333;
+  color: #fff;
+  padding: 5px;
 }
 
-/* BUTTON */
 button {
-    padding: 12px 25px;
-    border-radius: 8px;
-    border: none;
-    background: #00ffcc;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  background: #00ffcc;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 button:hover {
-    background: #00ccaa;
+  background: #00ccaa;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
-    .body {
-        flex-direction: column;
-    }
-
-    form, #result {
-        width: 100%;
-    }
-
-    textarea, select {
-        width: 90%;
-    }
+  .body {
+    flex-direction: column;
+  }
+  form, #result {
+    width: 100%;
+  }
+  textarea, select {
+    width: 90%;
+  }
 }
-    </style>
+</style>
 </head>
 <body>
-    <h1 class="logo">
-    Fi-<span class="go">GO</span> web
+<h1 class="logo">
+  Fi-<span class="go">GO</span> web
 </h1>
-    <div class="body">
-        
+<div class="body">
+  <form action="/asciiart" method="POST">
+    <select name="fonts" id="font">
+      <option value="" disabled {{if eq .Banner ""}}selected{{end}}>Select your font</option>
+      <option value="standard" {{if eq .Banner "standard"}}selected{{end}}>Standard</option>
+      <option value="thinkertoy" {{if eq .Banner "thinkertoy"}}selected{{end}}>Thinkertoy</option>
+      <option value="shadow" {{if eq .Banner "shadow"}}selected{{end}}>Shadow</option>
+      <option value="blocks">Block</option>
+    </select>
+    <textarea name="passed-text" id="passed-text" placeholder="Type in your preferred text">{{.Text}}</textarea>
+    <button type="submit">Generate Ascii-art</button>
+  </form>
 
-    <form action="/asciiart" method="POST">
-        <select name="fonts" id="font">
-            <option value="" disabled {{if eq .Banner ""}}selected{{end}}>Select your font</option>
-            <option value="standard" {{if eq .Banner "standard"}}selected{{end}}>Standard</option>
-            <option value="thinkertoy" {{if eq .Banner "thinkertoy"}}selected{{end}}>Thinkertoy</option>
-            <option value="shadow" {{if eq .Banner "shadow"}}selected{{end}}>Shadow</option>
-            <option value="blocks">Block</option>
-        </select>
-        <textarea name="passed-text" id="passed-text" placeholder="Type In your prefered text">{{.Text}}</textarea>
-        <button type="submit">Generate Ascii-art</button>
-    </form>
-    
-    <div id="result">
+  <div id="result">
     <pre>{{.Result}}</pre>
-    </div>
-    </div>
    
+    <div class="result-actions">
+      <button onclick="copyResult()">
+        <i data-lucide="copy"></i> Copy
+      </button>
+      <button onclick="downloadResult()">
+        <i data-lucide="download"></i> Download
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+<script src="function.js"></script> 
 </body>
 </html>
