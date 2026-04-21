@@ -133,6 +133,12 @@ button:hover {
   Fi-<span class="go">GO</span> web
 </h1>
 <div class="body">
+
+  <!-- ✅ Result is now on the RIGHT -->
+  <div id="result">
+    <pre>{{.Result}}</pre>
+  </div>
+
   <form action="/asciiart" method="POST">
     <select name="fonts" id="font">
       <option value="" disabled {{if eq .Banner ""}}selected{{end}}>Select your font</option>
@@ -143,18 +149,22 @@ button:hover {
     </select>
     <textarea name="passed-text" id="passed-text" placeholder="Type in your preferred text">{{.Text}}</textarea>
     <button type="submit">Generate Ascii-art</button>
+    <div class="result-actions">
+      <button type="button" onclick="copyResult()">
+        <i data-lucide="copy"></i> Copy
+      </button>
+      <button type="button" onclick="downloadResult()">
+        <i data-lucide="download"></i> Download
+      </button>
+    </div>
   </form>
+
+</div>
 
   <div id="result">
     <pre>{{.Result}}</pre>
    
-    <div class="result-actions">
-      <button onclick="copyResult()">
-        <i data-lucide="copy"></i> Copy
-      </button>
-      <button onclick="downloadResult()">
-        <i data-lucide="download"></i> Download
-      </button>
+    
     </div>
   </div>
 </div>
@@ -162,6 +172,33 @@ button:hover {
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>lucide.createIcons();</script>
-<script src="function.js"></script> 
+<script>
+    function copyResult() {
+    const text = document.querySelector("#result pre").innerText;
+
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            alert("Copied to clipboard!");
+        })
+        .catch(err => {
+            alert("Failed to copy");
+        });
+}
+function downloadResult() {
+    const text = document.querySelector("#result pre").innerText;
+
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ascii-art.txt";
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+</script> 
 </body>
 </html>
