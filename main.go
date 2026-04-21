@@ -16,7 +16,6 @@
 // if err != nil {
 // 	fmt.Println("Server error:", err)
 
-	 
 // }
 // }
 package main
@@ -38,8 +37,10 @@ func main() {
 	}
 
 	fmt.Println("Server running on port:", port)
+	fmt.Println("visit http://localhost:10000")
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		fmt.Println("Server error:", err)
 	}
+
 }
