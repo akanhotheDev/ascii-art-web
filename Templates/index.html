@@ -150,12 +150,8 @@ button:hover {
     <textarea name="passed-text" id="passed-text" placeholder="Type in your preferred text">{{.Text}}</textarea>
     <button type="submit">Generate Ascii-art</button>
     <div class="result-actions">
-      <button type="button" onclick="copyResult()">
-        <i data-lucide="copy"></i> Copy
-      </button>
-      <button type="button" onclick="downloadResult()">
-        <i data-lucide="download"></i> Download
-      </button>
+      <button type="button" onclick="copyResult()">Copy</button>
+      <button type="button" onclick="downloadResult()">Download</button>
     </div>
   </form>
 
@@ -170,8 +166,6 @@ button:hover {
 </div>
 
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script>lucide.createIcons();</script>
 <script>
     function copyResult() {
     const text = document.querySelector("#result pre").innerText;
